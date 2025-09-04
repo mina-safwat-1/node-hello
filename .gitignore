@@ -1,7 +1,7 @@
 .DS_Store
 terraform/infra/.terraform
+terraform/infra/terraform.tfstate
 terraform/workloads/.terraform
+terraform/workloads/terraform.tfstate
 terraform/workloads/prod.tfvars
 .vscode/
-
-

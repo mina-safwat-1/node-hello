@@ -41,11 +41,14 @@ jobs:
           images: ${{ secrets.DOCKER_USERNAME }}/nawy-task
           tags: |
             type=sha,format=short
-            type=raw,value=latest
-
 
       - name: Build Docker image
         run: docker build -t ${{ steps.meta.outputs.tags }} .
 
-      - name: Push Docker image
-        run: docker push ${{ steps.meta.outputs.tags }}
+      - name: Add latest tag to the image
+        run: docker tag ${{ steps.meta.outputs.tags }} ${{ secrets.DOCKER_USERNAME }}/nawy-task:latest
+
+      - name: Push Docker images
+        run: |
+          docker push ${{ steps.meta.outputs.tags }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/nawy-task:latest
