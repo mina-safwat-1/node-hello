@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install --include=dev   # fixed flag
+        run: npm install --only=dev   # fixed flag
 
       - name: Run lint
         run: npm run lint
@@ -69,6 +69,7 @@ jobs:
 
       - name: Commit and push Helm chart changes
         run: |
+          IMAGE_TAG=${{ steps.meta.outputs.tags }}
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add nawy-chart/values.yaml
