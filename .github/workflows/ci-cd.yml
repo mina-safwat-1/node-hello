@@ -62,11 +62,12 @@ jobs:
       - name: Update Helm chart image tag
         run: |
           IMAGE_TAG=${{ steps.meta.outputs.tags }}
-          yq -i ".image.tag = \"$IMAGE_TAG\"" ./gitops-repo/nawy-chart/values.yaml
+          yq -i ".image.tag = \"$IMAGE_TAG\"" ./nawy-task-gitops-repo/nawy-chart/values.yaml
+          
 
       - name: Commit and push Helm chart changes
         run: |
-          cd gitops-repo
+          cd nawy-task-gitops-repo
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add nawy-chart/values.yaml
