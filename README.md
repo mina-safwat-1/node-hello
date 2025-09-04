@@ -48,6 +48,7 @@ Before deploying, complete the following:
 ![secrets in application repo](images/github_secrets.png)
 6. create Iam role or Iam user in aws to configure it.
 ![iam user](images/iam_user.png)
+7. Fork [Deployment Manifests / GitOps](https://github.com/mina-safwat-1/nawy-task-gitops-repo)
 
 
 ---
@@ -158,7 +159,7 @@ Apply the ArgoCD application:
 cd node-hello/argocd-application
 kubectl apply -f application.yaml
 ```
-### you can access this dashboard using this domain argocd.yourdomain.com
+## You can access this dashboard using this domain argocd.yourdomain.com
 
 #### to get credentials
 
