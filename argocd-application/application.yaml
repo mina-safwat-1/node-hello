@@ -10,13 +10,6 @@ spec:
     repoURL: 'https://github.com/mina-safwat-1/nawy-task-gitops-repo.git' # <-- repo
     targetRevision: HEAD          # branch, tag, or commit (use 'main' or specific tag if needed)
     path: nawy-chart              # <-- path to the Helm chart inside the repo
-    helm:
-      valueFiles:
-        - values.yaml
-      # Example of setting a chart value (overrides values.yaml)
-      parameters:
-        - name: image.tag
-          value: "latest"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default            # namespace to deploy the chart into
