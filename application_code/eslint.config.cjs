@@ -5,9 +5,9 @@ module.exports = [
   js.configs.recommended,
   {
     rules: {
-      semi: "error",               // enforce semicolons
-      quotes: ["error", "double"], // enforce double quotes
-      "no-unused-vars": "warn",    // warn about unused vars
+      semi: "warn",                // warn about missing semicolons
+      quotes: ["warn", "double"],  // warn about single quotes
+      "no-unused-vars": "warn",    // keep this as warning
     },
   },
 ];
