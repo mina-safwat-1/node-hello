@@ -56,15 +56,13 @@ jobs:
           path: nawy-task-gitops-repo
           token: ${{ secrets.GITOPS_PAT }}  # Personal Access Token with repo permissions
 
-      # - name: Install yq
-      #   run: sudo apt-get update && sudo apt-get install -y yq
 
       - name: Update Helm chart image tag
         run: |
           IMAGE_TAG=${{ steps.meta.outputs.tags }}
-          ls
-          echo "New image tag: $IMAGE_TAG"
-          yq eval ".image.tag = \"$IMAGE_TAG\"" ./nawy-chart/values.yaml > ./nawy-chart/values.tmp.yaml
+          # extract only the part after colon if your tag format is repo:tag
+          SHORT_TAG="${IMAGE_TAG##*:}"
+          yq eval ".image.tag = \"$SHORT_TAG\"" ./nawy-chart/values.yaml > ./nawy-chart/values.tmp.yaml
           mv ./nawy-chart/values.tmp.yaml ./nawy-chart/values.yaml
         working-directory: nawy-task-gitops-repo
 
