@@ -48,3 +48,27 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ steps.meta.outputs.tags }}
+
+      - name: Checkout GitOps repo
+        uses: actions/checkout@v3
+        with:
+          repository: mina-safwat-1/nawy-task-gitops-repo
+          path: gitops-repo
+          token: ${{ secrets.GITOPS_PAT }}  # Personal Access Token with repo permissions
+
+      - name: Install yq
+        run: sudo apt-get update && sudo apt-get install -y yq
+
+      - name: Update Helm chart image tag
+        run: |
+          IMAGE_TAG=${{ steps.meta.outputs.tags }}
+          yq -i ".image.tag = \"$IMAGE_TAG\"" ./gitops-repo/nawy-chart/values.yaml
+
+      - name: Commit and push Helm chart changes
+        run: |
+          cd gitops-repo
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add nawy-chart/values.yaml
+          git commit -m "Update image tag to $IMAGE_TAG"
+          git push
